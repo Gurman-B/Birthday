@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Final</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Keren 🎀</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --pink-accent: #ff69b4;
+            --glass: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0, #ff69b4);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- RAIN & HEART ANIMATION --- */
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .drop {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            width: 1px;
+            height: 20px;
+            top: -20px;
+            animation: fall linear infinite;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            top: -20px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+
+        /* --- UI ELEMENTS --- */
+        #countdown {
+            position: absolute;
+            top: 20px;
+            font-size: 0.8rem;
+            background: var(--glass);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            z-index: 20;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            z-index: 10;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            padding: 30px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.6s ease;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px 0 rgba(255, 105, 180, 0.2);
+        }
+
+        .scroll-area {
+            overflow-y: auto;
+            margin: 15px 0;
+            padding-right: 10px;
+            text-align: left;
+        }
+
+        .scroll-area::-webkit-scrollbar { width: 5px; }
+        .scroll-area::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+        }
+
+        .hidden { display: none; opacity: 0; }
+        .visible { display: flex; animation: fadeIn 0.8s forwards; }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        h1 { font-size: 1.8rem; margin-bottom: 10px; font-weight: 800; text-transform: uppercase; }
+        h2 { font-size: 1.4rem; color: #fff; margin-top: 0; text-transform: uppercase; letter-spacing: 1px; }
+
+        .heart-text { font-size: 1.05em; line-height: 1.7; }
+
+        .fav-list {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .fav-item {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: var(--pink-accent);
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        button:hover { transform: scale(1.05); background: #fff1f8; }
+
+        .final-heart-container {
+            margin-bottom: 20px;
+        }
+
+        .big-heart {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: beat 1.2s infinite;
+        }
+
+        .initials-text {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            color: white;
+            display: block;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .footer-note { font-size: 0.8rem; opacity: 0.7; margin-top: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="rain" id="rainContainer"></div>
+    <div id="countdown">loading birthday magic</div>
+    
+    <audio id="birthdayAudio" loop>
+        <source src="https://www.mboxdrive.com/Happy%20Birthday%20Piano.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div id="screen1" class="card">
+            <h1>Happy Birthday, Keren!</h1>
+            <p>From Gurman</p>
+            <button onclick="startExperience()">Click Me, Keren</button>
+        </div>
+
+        <div id="screen2" class="card hidden">
+            <h2>To Keren,</h2>
+            <div class="scroll-area">
+                <div class="heart-text">
+                    I’ve been trying to figure out the right way to say this, but honestly, words usually fall short when it comes to you. There’s a certain kind of light you bring into a room—and my life—that I haven’t found anywhere else.
+                    <br><br>
+                    You’re turning 15, and looking at the person you’re becoming is genuinely amazing. Your beauty isn’t just about what everyone else sees; it’s in the way you think, how you make people feel, and that spark you have that’s just uniquely you.
+                    <br><br>
+                    I’ll be real with you: I’ve realized that I’ve reached a point where I can’t really imagine my day-to-day life without you in it. You’ve become my person. Whether it’s the big moments or just the random, quiet parts of the day, everything feels more complete when you’re involved. You make the good days better and the bad days actually bearable.
+                    <br><br>
+                    So, on your birthday, I just wanted you to know how much you’re truly appreciated. You deserve the world today. I hope this year is as incredible as you are. Happy birthday, Keren. You mean everything to me.
+                </div>
+            </div>
+            <p class="footer-note">↓ Scroll to read ↓</p>
+            <button onclick="nextScreen(2, 3)">Next</button>
+        </div>
+
+        <div id="screen3" class="card hidden">
+            <h2>My Favorite Things About You</h2>
+            <div class="scroll-area">
+                <div class="fav-list">
+                    <div class="fav-item">✨ The way your eyes light up</div>
+                    <div class="fav-item">🎀 Your incredible sense of style</div>
+                    <div class="fav-item">💭 How deeply you care about things</div>
+                    <div class="fav-item">🌙 The way you make me feel at peace</div>
+                    <div class="fav-item">💖 Just being 100% uniquely you</div>
+                </div>
+            </div>
+            <button onclick="nextScreen(3, 4)">Wait, There's More</button>
+        </div>
+
+        <div id="screen4" class="card hidden">
+            <h2>Your Favorite Things</h2>
+            <div class="scroll-area">
+                <div class="fav-list">
+                    <div class="fav-item">🍝 Pasta</div>
+                    <div class="fav-item">🤴 Gurman</div>
+                    <div class="fav-item">🏸 Badminton</div>
+                    <div class="fav-item">🧊 Ice</div>
+                </div>
+            </div>
+            <button onclick="nextScreen(4, 5)">One Last Thing</button>
+        </div>
+
+        <div id="screen5" class="card hidden">
+            <div class="final-heart-container">
+                <span class="big-heart">💖</span>
+                <span class="initials-text">K + G</span>
+            </div>
+            <h1>I'm Grateful For You</h1>
+            <p class="question-text">Will you be my girlfriend?</p>
+            <p style="font-weight: 800; letter-spacing: 2px; margin-top: 20px;">FOREVER, GURMAN</p>
+            <p class="footer-note">March 31, 2026</p>
+        </div>
+    </div>
+
+    <script>
+        // --- RAIN & HEART GENERATOR ---
+        const rainContainer = document.getElementById('rainContainer');
+        function createRain() {
+            for (let i = 0; i < 80; i++) {
+                const isHeart = Math.random() > 0.8;
+                const element = document.createElement('div');
+                
+                if (isHeart) {
+                    element.classList.add('floating-heart');
+                    element.innerHTML = '❤';
+                } else {
+                    element.classList.add('drop');
+                }
+                
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                element.style.animationDelay = Math.random() * 5 + 's';
+                rainContainer.appendChild(element);
+            }
+        }
+        createRain();
+
+        // --- COUNTDOWN ---
+        const targetDate = new Date("March 31, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            if (diff < 0) {
+                document.getElementById("countdown").innerHTML = "Happy Birthday, Keren! ✨";
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${mins}m ${secs}s until your day`;
+        }, 1000);
+
+        function startExperience() {
+            const audio = document.getElementById('birthdayAudio');
+            audio.play().catch(e => console.log("Audio play failed"));
+            nextScreen(1, 2);
+        }
+
+        function nextScreen(current, next) {
+            const currEl = document.getElementById('screen' + current);
+            const nextEl = document.getElementById('screen' + next);
+            
+            currEl.style.opacity = '0';
+            setTimeout(() => {
+                currEl.style.display = 'none';
+                nextEl.classList.remove('hidden');
+                nextEl.classList.add('visible');
+                
+                confetti({ 
+                    particleCount: 150, 
+                    spread: 70, 
+                    origin: { y: 0.6 },
+                    colors: ['#ffffff', '#ff69b4', '#ff1493']
+                });
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
